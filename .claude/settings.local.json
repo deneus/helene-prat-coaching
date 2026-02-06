@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(antiword:*)",
+      "Bash(python3 -c \"\nimport subprocess, sys\ntry:\n    from striprtf.striprtf import rtf_to_text\n    with open\\(r''C:\\\\Users\\\\deneu\\\\OneDrive\\\\Sites\\\\helene-coaching\\\\docx\\\\Helene Prat_coaching bio.rtf.doc'', ''r'', encoding=''utf-8'', errors=''ignore''\\) as f:\n        content = f.read\\(\\)\n    print\\(rtf_to_text\\(content\\)\\)\nexcept ImportError:\n    print\\(''striprtf not installed''\\)\n\")",
+      "Bash(# Try to read RTF as text and strip RTF tags with sed/awk # RTF files are text-based, let''s see the raw content head -c 5000 \"\"C:\\\\Users\\\\deneu\\\\OneDrive\\\\Sites\\\\helene-coaching\\\\docx\\\\Helene Prat_coaching bio.rtf.doc\"\")",
+      "Bash(pip install:*)",
+      "WebFetch(domain:www.cortneymcdermott.com)",
+      "WebFetch(domain:wordpress.com)",
+      "WebFetch(domain:preview.themeforest.net)",
+      "WebFetch(domain:femininethemesdemo.com)",
+      "WebSearch",
+      "WebFetch(domain:cmsmasters.studio)",
+      "Bash(claude --usage:*)",
+      "Bash(claude --stats:*)"
+    ]
+  }
+}
