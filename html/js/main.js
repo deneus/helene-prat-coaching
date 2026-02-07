@@ -1,23 +1,83 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ===== i18n Translation System ===== */
+  let currentLang = localStorage.getItem('hc-lang') || 'en';
+  let translations = {};
+
+  async function loadTranslations(lang) {
+    try {
+      const res = await fetch(`i18n/${lang}.json`);
+      translations = await res.json();
+      applyTranslations();
+    } catch (e) {
+      console.error('Failed to load translations:', e);
+    }
+  }
+
+  function applyTranslations() {
+    // textContent translations
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[key] !== undefined) {
+        if (el.tagName === 'TITLE') {
+          document.title = translations[key];
+        } else {
+          el.textContent = translations[key];
+        }
+      }
+    });
+
+    // innerHTML translations (for content with <strong> etc.)
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (translations[key] !== undefined) {
+        el.innerHTML = translations[key];
+      }
+    });
+
+    // meta tag translations
+    document.querySelectorAll('[data-i18n-meta]').forEach(el => {
+      const key = el.getAttribute('data-i18n-meta');
+      if (translations[key] !== undefined) {
+        el.setAttribute('content', translations[key]);
+      }
+    });
+
+    // placeholder translations
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (translations[key] !== undefined) {
+        el.setAttribute('placeholder', translations[key]);
+      }
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = currentLang;
+  }
+
   /* ===== Language Toggle ===== */
   const langBtn = document.getElementById('lang-toggle');
-  const savedLang = localStorage.getItem('hc-lang');
 
-  if (savedLang === 'fr') {
-    document.body.classList.add('fr');
-    langBtn.textContent = 'EN';
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('hc-lang', lang);
+    langBtn.textContent = lang === 'fr' ? 'EN' : 'FR';
+    loadTranslations(lang);
   }
 
   langBtn.addEventListener('click', () => {
-    document.body.classList.toggle('fr');
-    const isFr = document.body.classList.contains('fr');
-    langBtn.textContent = isFr ? 'EN' : 'FR';
-    localStorage.setItem('hc-lang', isFr ? 'fr' : 'en');
+    setLang(currentLang === 'fr' ? 'en' : 'fr');
   });
+
+  // Initial load
+  setLang(currentLang);
 
   /* ===== Sticky Header Shadow ===== */
   const header = document.querySelector('.header');
+
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
 
   /* ===== Mobile Menu ===== */
   const hamburger = document.getElementById('hamburger');
@@ -62,9 +122,315 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
+  /* ===== Scroll Reveal Animations ===== */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
 
+  document.querySelectorAll('.about-photo, .about-content, .split-quote, .program-intro-text, .for-you > .container > h2, .for-you > .container > .section-subtitle, .delivery-formats h3, .footer-brand, .footer-nav, .footer-bottom, .contact h2, .contact > .container > p, .contact .msf').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // Session cards cascade — observe the grid, reveal all cards at once (CSS delays handle stagger)
+  const sessionsGrid = document.querySelector('.sessions-grid');
+  if (sessionsGrid) {
+    const gridObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sessionsGrid.querySelectorAll('.session-card').forEach(card => {
+            card.classList.add('revealed');
+          });
+          gridObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    gridObserver.observe(sessionsGrid);
+  }
+
+  // Program details count-up — observe the row, animate numbers + reveal
+  const programDetails = document.querySelector('.program-details');
+  if (programDetails) {
+    const detailsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          programDetails.querySelectorAll('.program-detail').forEach(detail => {
+            detail.classList.add('revealed');
+          });
+          // Count-up animation for numeric values
+          programDetails.querySelectorAll('.detail-value').forEach(el => {
+            const text = el.textContent.trim();
+            const num = parseInt(text);
+            if (!isNaN(num) && num > 0) {
+              const duration = 1200;
+              const start = performance.now();
+              el.textContent = '0';
+              function tick(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(eased * num);
+                if (progress < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            }
+            // Globe SVG: add a spin
+            const svg = el.querySelector('svg');
+            if (svg) {
+              svg.style.transition = 'transform 0.8s ease';
+              svg.style.transform = 'rotate(360deg)';
+            }
+          });
+          detailsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    detailsObserver.observe(programDetails);
+  }
+
+  // Criteria cards fan-out — observe the grid, reveal all cards together
+  const criteriaGrid = document.querySelector('.criteria-grid');
+  if (criteriaGrid) {
+    const criteriaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          criteriaGrid.querySelectorAll('.criteria-card').forEach(card => {
+            card.classList.add('revealed');
+          });
+          criteriaObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    criteriaObserver.observe(criteriaGrid);
+  }
+
+  // Format items pop-in — observe the grid, reveal all items together
+  const formatsGrid = document.querySelector('.formats-grid');
+  if (formatsGrid) {
+    const formatsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          formatsGrid.querySelectorAll('.format-item').forEach(item => {
+            item.classList.add('revealed');
+          });
+          formatsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    formatsObserver.observe(formatsGrid);
+  }
+
+  // Gain items check-first reveal — observe the list, reveal all items together
+  const gainsList = document.querySelector('.gains-list');
+  if (gainsList) {
+    const gainsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          gainsList.querySelectorAll('.gain-item').forEach(item => {
+            item.classList.add('revealed');
+          });
+          gainsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    gainsObserver.observe(gainsList);
+  }
+
+  /* ===== Multi-Step Form ===== */
+  const form = document.getElementById('contact-form');
+  const steps = document.querySelectorAll('.msf-step');
+  const prevBtn = document.getElementById('msf-prev');
+  const nextBtn = document.getElementById('msf-next');
+  const submitBtn = document.getElementById('msf-submit');
+  const progressBar = document.getElementById('msf-progress-bar');
+  const currentIndicator = document.getElementById('msf-current');
+  const successEl = document.getElementById('msf-success');
+
+  const TOTAL_INPUT_STEPS = 4; // steps 1-4 are input, step 5 is summary
+  let currentStep = 1;
+  let formInitialized = false;
+
+  function showStep(step) {
+    currentStep = step;
+    steps.forEach(s => {
+      s.classList.remove('active');
+      if (parseInt(s.dataset.step) === step) {
+        s.classList.add('active');
+      }
+    });
+
+    // Update progress bar
+    const progress = Math.min(step, TOTAL_INPUT_STEPS) / TOTAL_INPUT_STEPS;
+    progressBar.style.width = (progress * 100) + '%';
+
+    // Update step indicator (show max 4 for input steps)
+    currentIndicator.textContent = Math.min(step, TOTAL_INPUT_STEPS);
+
+    // Show/hide nav buttons
+    prevBtn.style.display = step === 1 ? 'none' : '';
+    nextBtn.style.display = step < 5 ? '' : 'none';
+    submitBtn.style.display = step === 5 ? '' : 'none';
+
+    // Populate summary on step 5
+    if (step === 5) {
+      populateSummary();
+    }
+
+    // Focus first input of current step (skip on initial page load to avoid scroll jump)
+    if (formInitialized) {
+      const firstInput = document.querySelector(`.msf-step[data-step="${step}"] input, .msf-step[data-step="${step}"] textarea`);
+      if (firstInput && step <= TOTAL_INPUT_STEPS) {
+        setTimeout(() => firstInput.focus(), 300);
+      }
+    }
+  }
+
+  function validateStep(step) {
+    clearErrors();
+
+    if (step === 1) {
+      const name = document.getElementById('field-name').value.trim();
+      if (!name) {
+        showError('error-name', translations['form.required'] || 'This field is required');
+        return false;
+      }
+    }
+
+    if (step === 2) {
+      const email = document.getElementById('field-email').value.trim();
+      if (!email) {
+        showError('error-email', translations['form.required'] || 'This field is required');
+        return false;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('error-email', translations['form.email.invalid'] || 'Please enter a valid email address');
+        return false;
+      }
+    }
+
+    if (step === 3) {
+      const service = document.querySelector('input[name="service"]:checked');
+      if (!service) {
+        showError('error-service', translations['form.service.required'] || 'Please select a service');
+        return false;
+      }
+    }
+
+    // Step 4 (message) is optional — always valid
+    return true;
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = msg;
+      el.classList.add('visible');
+    }
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.msf-error').forEach(el => {
+      el.textContent = '';
+      el.classList.remove('visible');
+    });
+  }
+
+  function getServiceLabel(value) {
+    const map = {
+      private: translations['form.service.private'] || 'Private Coaching',
+      group: translations['form.service.group'] || 'Small Group',
+      workshop: translations['form.service.workshop'] || 'Workshop'
+    };
+    return map[value] || value;
+  }
+
+  function populateSummary() {
+    document.getElementById('summary-name').textContent = document.getElementById('field-name').value.trim();
+    document.getElementById('summary-email').textContent = document.getElementById('field-email').value.trim();
+
+    const serviceInput = document.querySelector('input[name="service"]:checked');
+    document.getElementById('summary-service').textContent = serviceInput ? getServiceLabel(serviceInput.value) : '—';
+
+    const message = document.getElementById('field-message').value.trim();
+    document.getElementById('summary-message').textContent = message || '—';
+  }
+
+  // Navigation
+  nextBtn.addEventListener('click', () => {
+    if (validateStep(currentStep)) {
+      showStep(currentStep + 1);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 1) {
+      showStep(currentStep - 1);
+    }
+  });
+
+  // Edit buttons in summary
+  document.querySelectorAll('.msf-edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const goto = parseInt(btn.dataset.goto);
+      showStep(goto);
+    });
+  });
+
+  // Allow Enter to go next on text/email inputs
+  document.querySelectorAll('#contact-form input[type="text"], #contact-form input[type="email"]').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        nextBtn.click();
+      }
+    });
+  });
+
+  // Submit
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = translations['form.sending'] || 'Sending...';
+
+    const formData = {
+      name: document.getElementById('field-name').value.trim(),
+      email: document.getElementById('field-email').value.trim(),
+      service: getServiceLabel(document.querySelector('input[name="service"]:checked')?.value || ''),
+      message: document.getElementById('field-message').value.trim()
+    };
+
+    try {
+      // EmailJS integration — replace placeholders with real values
+      if (typeof emailjs !== 'undefined') {
+        await emailjs.send(
+          'YOUR_SERVICE_ID',   // Replace with your EmailJS service ID
+          'YOUR_TEMPLATE_ID',  // Replace with your EmailJS template ID
+          formData,
+          'YOUR_PUBLIC_KEY'    // Replace with your EmailJS public key
+        );
+      }
+
+      // Show success
+      form.style.display = 'none';
+      document.querySelector('.msf-progress').style.display = 'none';
+      document.querySelector('.msf-step-indicator').style.display = 'none';
+      successEl.classList.add('visible');
+
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      submitBtn.disabled = false;
+      submitBtn.textContent = translations['form.submit'] || 'Send Message';
+      alert(translations['form.error'] || 'Something went wrong. Please try again or email directly.');
+    }
+  });
+
+  // Initialize form
+  showStep(1);
+  formInitialized = true;
 
 });

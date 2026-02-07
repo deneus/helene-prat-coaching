@@ -12,7 +12,12 @@
       "WebSearch",
       "WebFetch(domain:cmsmasters.studio)",
       "Bash(claude --usage:*)",
-      "Bash(claude --stats:*)"
+      "Bash(claude --stats:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(ping:*)",
+      "Bash(curl:*)",
+      "Bash(node -e:*)"
     ]
   }
 }

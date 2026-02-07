@@ -1,0 +1,7 @@
+{
+  "name": "helene-coaching",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve html -p 3000"
+  }
+}
