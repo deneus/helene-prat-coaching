@@ -1,0 +1,11 @@
+faut une baniere pour accepter les GDPR et une page legal
+
+il faut un nom de domaine pour
+1. captcha - https://dash.cloudflare.com/f192ccd20982e51402535e2b0ce462e4/turnstile/add
+2. matomo d eric
+3. update l envoie de mail avec le mail d Helene + code app https://myaccount.google.com/apppasswords
+4. faire du HTTPS
+
+est ce que je suis secure?
+
+deploy sur vercel

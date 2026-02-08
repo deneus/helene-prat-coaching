@@ -1,0 +1,10 @@
+# Dependencies
+html/vendor/
+
+# Environment variables (credentials)
+html/.env
+
+# System files
+nul
+.DS_Store
+Thumbs.db

@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentIndicator = document.getElementById('msf-current');
   const successEl = document.getElementById('msf-success');
 
-  const TOTAL_INPUT_STEPS = 4; // steps 1-4 are input, step 5 is summary
+  const TOTAL_STEPS = 4;
   let currentStep = 1;
   let formInitialized = false;
 
@@ -264,26 +264,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Update progress bar
-    const progress = Math.min(step, TOTAL_INPUT_STEPS) / TOTAL_INPUT_STEPS;
-    progressBar.style.width = (progress * 100) + '%';
+    progressBar.style.width = ((step / TOTAL_STEPS) * 100) + '%';
 
-    // Update step indicator (show max 4 for input steps)
-    currentIndicator.textContent = Math.min(step, TOTAL_INPUT_STEPS);
+    // Update step indicator
+    currentIndicator.textContent = step;
 
     // Show/hide nav buttons
     prevBtn.style.display = step === 1 ? 'none' : '';
-    nextBtn.style.display = step < 5 ? '' : 'none';
-    submitBtn.style.display = step === 5 ? '' : 'none';
-
-    // Populate summary on step 5
-    if (step === 5) {
-      populateSummary();
-    }
+    nextBtn.style.display = step < TOTAL_STEPS ? '' : 'none';
+    submitBtn.style.display = step === TOTAL_STEPS ? 'inline-block' : 'none';
 
     // Focus first input of current step (skip on initial page load to avoid scroll jump)
     if (formInitialized) {
       const firstInput = document.querySelector(`.msf-step[data-step="${step}"] input, .msf-step[data-step="${step}"] textarea`);
-      if (firstInput && step <= TOTAL_INPUT_STEPS) {
+      if (firstInput) {
         setTimeout(() => firstInput.focus(), 300);
       }
     }
@@ -320,7 +314,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Step 4 (message) is optional — always valid
+    // Step 4: consent checkbox is required
+    if (step === 4) {
+      const consent = document.getElementById('field-consent');
+      if (!consent.checked) {
+        showError('error-consent', translations['form.consent.required'] || 'You must accept to continue');
+        return false;
+      }
+    }
+
     return true;
   }
 
@@ -348,17 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return map[value] || value;
   }
 
-  function populateSummary() {
-    document.getElementById('summary-name').textContent = document.getElementById('field-name').value.trim();
-    document.getElementById('summary-email').textContent = document.getElementById('field-email').value.trim();
-
-    const serviceInput = document.querySelector('input[name="service"]:checked');
-    document.getElementById('summary-service').textContent = serviceInput ? getServiceLabel(serviceInput.value) : '—';
-
-    const message = document.getElementById('field-message').value.trim();
-    document.getElementById('summary-message').textContent = message || '—';
-  }
-
   // Navigation
   nextBtn.addEventListener('click', () => {
     if (validateStep(currentStep)) {
@@ -370,14 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStep > 1) {
       showStep(currentStep - 1);
     }
-  });
-
-  // Edit buttons in summary
-  document.querySelectorAll('.msf-edit-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const goto = parseInt(btn.dataset.goto);
-      showStep(goto);
-    });
   });
 
   // Allow Enter to go next on text/email inputs
@@ -397,22 +380,33 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.disabled = true;
     submitBtn.textContent = translations['form.sending'] || 'Sending...';
 
+    const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]')?.value;
+    if (!turnstileResponse) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = translations['form.submit'] || 'Send Message';
+      alert(translations['form.captcha'] || 'Please complete the security check.');
+      return;
+    }
+
     const formData = {
       name: document.getElementById('field-name').value.trim(),
       email: document.getElementById('field-email').value.trim(),
       service: getServiceLabel(document.querySelector('input[name="service"]:checked')?.value || ''),
-      message: document.getElementById('field-message').value.trim()
+      message: document.getElementById('field-message').value.trim(),
+      turnstileToken: turnstileResponse
     };
 
     try {
-      // EmailJS integration — replace placeholders with real values
-      if (typeof emailjs !== 'undefined') {
-        await emailjs.send(
-          'YOUR_SERVICE_ID',   // Replace with your EmailJS service ID
-          'YOUR_TEMPLATE_ID',  // Replace with your EmailJS template ID
-          formData,
-          'YOUR_PUBLIC_KEY'    // Replace with your EmailJS public key
-        );
+      // Send via PHP backend
+      const response = await fetch('send-email.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Server error');
       }
 
       // Show success
@@ -422,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
       successEl.classList.add('visible');
 
     } catch (err) {
-      console.error('EmailJS error:', err);
+      console.error('Mail error:', err);
       submitBtn.disabled = false;
       submitBtn.textContent = translations['form.submit'] || 'Send Message';
       alert(translations['form.error'] || 'Something went wrong. Please try again or email directly.');

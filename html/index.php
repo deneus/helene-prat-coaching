@@ -1,33 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="meta.title">Hélène Prat — Coaching for Couples &amp; Teams in Transition</title>
-  <meta name="description" data-i18n-meta="meta.description" content="Certified ORSC Coach and PCM Trainer helping couples and teams thrive through relocation and transition. Based in Hilversum, Netherlands.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<?php
+declare(strict_types=1);
+require __DIR__ . '/vendor/autoload.php';
 
-  <!-- ===== HEADER ===== -->
-  <header class="header">
-    <div class="container">
-      <a href="#" class="logo">Hélène Prat</a>
-      <nav class="nav-links" id="nav-links">
-        <a href="#about" data-i18n="nav.about">About</a>
-        <a href="#program">Rooted Together</a>
-        <a href="#approach" data-i18n="nav.approach">Approach</a>
-        <a href="#contact">Contact</a>
-        <button class="lang-toggle" id="lang-toggle">FR</button>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+use HeleneCoaching\EnvironmentConfiguration;
+use HeleneCoaching\FrontEnd\Header;
+use HeleneCoaching\FrontEnd\Footer;
+
+$turnstileSiteKey = htmlspecialchars(EnvironmentConfiguration::get('TURNSTILE_SITE_KEY'));
+
+echo Header::render(
+    title: 'Hélène Prat — Coaching for Couples &amp; Teams in Transition',
+    titleI18nKey: 'meta.title',
+    description: 'Certified ORSC Coach and PCM Trainer helping couples and teams thrive through relocation and transition. Based in Hilversum, Netherlands.',
+    descriptionI18nKey: 'meta.description',
+    extraHeadHtml: ['  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'],
+);
+?>
 
   <!-- ===== HERO ===== -->
   <section class="hero">
@@ -156,27 +144,6 @@
           <p data-i18n="criteria3.desc">You feel "there is a lot to talk about," but don't quite know where to start.</p>
         </div>
       </div>
-
-      <!-- Delivery formats -->
-	  <!--
-      <div class="delivery-formats">
-        <h3 data-i18n="delivery.title">Program Delivery Options</h3>
-        <div class="formats-grid">
-          <div class="format-item">
-            <h4 data-i18n="delivery.private.title">Private Coaching</h4>
-            <p data-i18n="delivery.private.desc">1:1 coaching journey for one couple</p>
-          </div>
-          <div class="format-item">
-            <h4 data-i18n="delivery.group.title">Small Group</h4>
-            <p data-i18n="delivery.group.desc">3–5 couples with shared relocation experiences</p>
-          </div>
-          <div class="format-item">
-            <h4>Workshop</h4>
-            <p data-i18n="delivery.workshop.desc">1-day or weekend intensive on core concepts</p>
-          </div>
-        </div>
-      </div>
-	  -->
     </div>
   </section>
 
@@ -264,33 +231,12 @@
           <div class="msf-step" data-step="4">
             <label for="field-message" data-i18n="form.message.label">Anything else you'd like to share?</label>
             <textarea id="field-message" name="message" rows="4" data-i18n-placeholder="form.message.placeholder" placeholder="Your message (optional)"></textarea>
-          </div>
-
-          <!-- Step 5: Summary -->
-          <div class="msf-step" data-step="5">
-            <h3 class="msf-summary-title" data-i18n="form.summary.title">Review your information</h3>
-            <div class="msf-summary">
-              <div class="msf-summary-row">
-                <span class="msf-summary-label" data-i18n="form.summary.name">Name</span>
-                <span class="msf-summary-value" id="summary-name"></span>
-                <button type="button" class="msf-edit-btn" data-goto="1" data-i18n="form.edit">Edit</button>
-              </div>
-              <div class="msf-summary-row">
-                <span class="msf-summary-label" data-i18n="form.summary.email">Email</span>
-                <span class="msf-summary-value" id="summary-email"></span>
-                <button type="button" class="msf-edit-btn" data-goto="2" data-i18n="form.edit">Edit</button>
-              </div>
-              <div class="msf-summary-row">
-                <span class="msf-summary-label" data-i18n="form.summary.service">Service</span>
-                <span class="msf-summary-value" id="summary-service"></span>
-                <button type="button" class="msf-edit-btn" data-goto="3" data-i18n="form.edit">Edit</button>
-              </div>
-              <div class="msf-summary-row">
-                <span class="msf-summary-label" data-i18n="form.summary.message">Message</span>
-                <span class="msf-summary-value" id="summary-message"></span>
-                <button type="button" class="msf-edit-btn" data-goto="4" data-i18n="form.edit">Edit</button>
-              </div>
-            </div>
+            <label class="msf-checkbox">
+              <input type="checkbox" id="field-consent" name="consent" required>
+              <span data-i18n="form.consent">I agree that my data will be used to process my request.</span>
+            </label>
+            <span class="msf-error" id="error-consent"></span>
+            <div class="cf-turnstile" data-sitekey="<?= $turnstileSiteKey ?>" data-theme="light" data-size="normal"></div>
           </div>
 
           <!-- Navigation buttons -->
@@ -314,29 +260,4 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <span class="logo">Hélène Prat</span>
-          <p data-i18n="footer.tagline">Coaching for Couples &amp; Teams in Transition</p>
-          <p>Hilversum, Netherlands</p>
-        </div>
-        <nav class="footer-nav">
-          <a href="#about" data-i18n="nav.about">About</a>
-          <a href="#program">Rooted Together</a>
-          <a href="#approach" data-i18n="nav.approach">Approach</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Hélène Prat. <span data-i18n="footer.rights">All rights reserved.</span></p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="js/main.js?v=2"></script>
-</body>
-</html>
+<?= Footer::render() ?>

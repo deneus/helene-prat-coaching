@@ -985,6 +985,24 @@ section {
   color: var(--color-text);
 }
 
+/* Consent checkbox */
+.msf-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.msf-checkbox input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--color-primary);
+}
+
 /* Summary step */
 .msf-summary-title {
   text-align: left;
@@ -1189,6 +1207,59 @@ section {
   text-align: center;
 }
 
+
+/* ===== Privacy Policy Page ===== */
+.privacy-policy {
+  padding: 140px 0 80px;
+  min-height: 60vh;
+}
+
+.privacy-policy h1 {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.privacy-policy .privacy-updated {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin-bottom: 40px;
+}
+
+.privacy-policy h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.privacy-policy p,
+.privacy-policy li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.privacy-policy ul {
+  padding-left: 24px;
+  margin: 8px 0 16px;
+}
+
+.privacy-policy li {
+  margin-bottom: 4px;
+}
+
+.footer-bottom a {
+  color: inherit;
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.footer-bottom a:hover {
+  opacity: 1;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 960px) {
