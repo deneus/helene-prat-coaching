@@ -1,6 +1,3 @@
-# Dependencies
-html/vendor/
-
 # Environment variables (credentials)
 html/.env
 
