@@ -11,10 +11,11 @@ final class EnvironmentConfiguration
     public static function load(string $envPath = null): void
     {
         $path = $envPath ?? dirname(__DIR__) . '/.env';
-        if (!file_exists($path)) {
-            throw new \RuntimeException('Configuration file not found: ' . $path);
+        if (file_exists($path)) {
+            self::$data = parse_ini_file($path);
+        } else {
+            self::$data = [];
         }
-        self::$data = parse_ini_file($path);
     }
 
     public static function get(string $key, string $default = ''): string
@@ -22,6 +23,10 @@ final class EnvironmentConfiguration
         if (self::$data === null) {
             self::load();
         }
-        return self::$data[$key] ?? $default;
+        if (isset(self::$data[$key])) {
+            return self::$data[$key];
+        }
+        $env = getenv($key);
+        return $env !== false ? $env : $default;
     }
 }
