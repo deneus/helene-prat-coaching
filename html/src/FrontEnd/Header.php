@@ -53,6 +53,7 @@ HTML;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 {$extraHead}
 {$matomo}
 </head>
@@ -67,7 +68,7 @@ HTML;
         <a href="/#program">Rooted Together</a>
         <a href="/#approach" data-i18n="nav.approach">Approach</a>
         <a href="/#contact">Contact</a>
-        <button class="lang-toggle" id="lang-toggle">FR</button>
+        <button class="lang-toggle" id="lang-toggle"><span class="fi fi-fr"></span> FR</button>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>

@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setLang(lang) {
     currentLang = lang;
     localStorage.setItem('hc-lang', lang);
-    langBtn.textContent = lang === 'fr' ? 'EN' : 'FR';
+    langBtn.innerHTML = lang === 'fr' ? '<span class="fi fi-gb"></span> EN' : '<span class="fi fi-fr"></span> FR';
     loadTranslations(lang);
   }
 
