@@ -31,7 +31,18 @@ final class Footer
     </div>
   </footer>
 
-  <script src="js/main.js?v=3"></script>
+  <!-- ===== COOKIE CONSENT BANNER ===== -->
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-banner-content">
+      <p data-i18n-html="cookie.text">This website uses cookies for anonymous analytics. See our <a href="/privacy.php">Privacy Policy</a> for details.</p>
+      <div class="cookie-banner-actions">
+        <button class="btn btn-outline cookie-btn" id="cookie-reject" data-i18n="cookie.reject">Reject</button>
+        <button class="btn btn-primary cookie-btn" id="cookie-accept" data-i18n="cookie.accept">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>
 HTML;

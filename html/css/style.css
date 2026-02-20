@@ -1251,6 +1251,20 @@ section {
   margin-bottom: 4px;
 }
 
+.matomo-optout {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: var(--color-bg-alt);
+  border-radius: 8px;
+}
+
+.matomo-optout-status {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-style: italic;
+}
+
 .footer-bottom a {
   color: inherit;
   text-decoration: underline;
@@ -1259,6 +1273,76 @@ section {
 
 .footer-bottom a:hover {
   opacity: 1;
+}
+
+/* ===== Cookie Consent Banner ===== */
+.cookie-banner {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: var(--color-dark);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.cookie-banner.visible {
+  display: block;
+  animation: cookieSlideUp 0.4s ease;
+}
+
+@keyframes cookieSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.cookie-banner-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.cookie-banner-content p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cookie-banner-content a {
+  color: var(--color-accent-light);
+  text-decoration: underline;
+}
+
+.cookie-banner-content a:hover {
+  color: var(--color-white);
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cookie-btn {
+  padding: 10px 24px;
+  font-size: 0.85rem;
+}
+
+.cookie-banner .btn-outline {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cookie-banner .btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: var(--color-white);
 }
 
 /* ===== Responsive ===== */
@@ -1327,6 +1411,12 @@ section {
   .footer-nav {
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .cookie-banner-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
   }
 
   .msf {

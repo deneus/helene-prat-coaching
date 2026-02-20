@@ -133,5 +133,11 @@
   "privacy.rights.portability": "Data portability",
   "privacy.rights.withdraw": "Withdraw your consent at any time",
   "privacy.contact.title": "Contact",
-  "privacy.contact.text": "For any questions regarding your personal data or to exercise your rights, please contact Hélène Prat via the contact form on this website or by email."
+  "privacy.contact.text": "For any questions regarding your personal data or to exercise your rights, please contact Hélène Prat via the contact form on this website or by email.",
+  "privacy.analytics.optout.enabled": "I accept anonymous analytics tracking.",
+  "privacy.analytics.optout.status": "You have been opted out of analytics tracking.",
+
+  "cookie.text": "This website uses cookies for anonymous analytics. See our <a href=\"/privacy.php\">Privacy Policy</a> for details.",
+  "cookie.accept": "Accept",
+  "cookie.reject": "Reject"
 }

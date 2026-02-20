@@ -133,5 +133,11 @@
   "privacy.rights.portability": "Portabilité des données",
   "privacy.rights.withdraw": "Retirer votre consentement à tout moment",
   "privacy.contact.title": "Contact",
-  "privacy.contact.text": "Pour toute question concernant vos données personnelles ou pour exercer vos droits, veuillez contacter Hélène Prat via le formulaire de contact de ce site ou par email."
+  "privacy.contact.text": "Pour toute question concernant vos données personnelles ou pour exercer vos droits, veuillez contacter Hélène Prat via le formulaire de contact de ce site ou par email.",
+  "privacy.analytics.optout.enabled": "J'accepte le suivi statistique anonyme.",
+  "privacy.analytics.optout.status": "Vous avez été désinscrit du suivi statistique.",
+
+  "cookie.text": "Ce site utilise des cookies pour des statistiques anonymes. Consultez notre <a href=\"/privacy.php\">Politique de confidentialité</a> pour en savoir plus.",
+  "cookie.accept": "Accepter",
+  "cookie.reject": "Refuser"
 }

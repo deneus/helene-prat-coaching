@@ -43,6 +43,35 @@ echo Header::render(
 
       <h2 data-i18n="privacy.analytics.title">Analytics</h2>
       <p data-i18n="privacy.analytics.text">This website uses Matomo, a self-hosted analytics solution, to collect anonymous usage statistics. No personal data is shared with third parties through analytics. You can opt out of analytics tracking at any time.</p>
+      <div class="matomo-optout">
+        <label class="msf-checkbox">
+          <input type="checkbox" id="matomo-optout-checkbox" checked>
+          <span data-i18n="privacy.analytics.optout.enabled">I accept anonymous analytics tracking.</span>
+        </label>
+        <p class="matomo-optout-status" id="matomo-optout-status"></p>
+      </div>
+      <script>
+        (function() {
+          var cb = document.getElementById('matomo-optout-checkbox');
+          var status = document.getElementById('matomo-optout-status');
+          if (typeof _paq === 'undefined') { cb.parentElement.parentElement.style.display = 'none'; return; }
+          _paq.push([function() {
+            if (this.isUserOptedOut()) { cb.checked = false; }
+          }]);
+          cb.addEventListener('change', function() {
+            if (cb.checked) {
+              _paq.push(['forgetUserOptOut']);
+              status.textContent = '';
+            } else {
+              _paq.push(['optUserOut']);
+              status.setAttribute('data-i18n', 'privacy.analytics.optout.status');
+              status.textContent = document.documentElement.lang === 'fr'
+                ? 'Vous avez été désinscrit du suivi statistique.'
+                : 'You have been opted out of analytics tracking.';
+            }
+          });
+        })();
+      </script>
 
       <h2 data-i18n="privacy.captcha.title">Security (Captcha)</h2>
       <p data-i18n="privacy.captcha.text">This website uses Cloudflare Turnstile to protect the contact form against spam. Turnstile may collect technical data (IP address, browser information) as described in Cloudflare's privacy policy.</p>

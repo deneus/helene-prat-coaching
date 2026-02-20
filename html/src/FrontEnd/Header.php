@@ -19,6 +19,7 @@ final class Header
   <!-- Matomo -->
   <script>
     var _paq = window._paq = window._paq || [];
+    _paq.push(['requireCookieConsent']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {

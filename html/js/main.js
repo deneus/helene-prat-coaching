@@ -72,6 +72,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial load
   setLang(currentLang);
 
+  /* ===== Cookie Consent Banner ===== */
+  const cookieBanner = document.getElementById('cookie-banner');
+  const cookieAccept = document.getElementById('cookie-accept');
+  const cookieReject = document.getElementById('cookie-reject');
+  const cookieConsent = localStorage.getItem('hc-cookie-consent');
+
+  function setCookieConsent(accepted) {
+    localStorage.setItem('hc-cookie-consent', accepted ? 'accepted' : 'rejected');
+    cookieBanner.classList.remove('visible');
+    if (accepted && typeof _paq !== 'undefined') {
+      _paq.push(['setCookieConsentGiven']);
+    }
+  }
+
+  if (cookieConsent === 'accepted') {
+    if (typeof _paq !== 'undefined') {
+      _paq.push(['setCookieConsentGiven']);
+    }
+  } else if (cookieConsent !== 'rejected') {
+    cookieBanner.classList.add('visible');
+  }
+
+  cookieAccept.addEventListener('click', () => setCookieConsent(true));
+  cookieReject.addEventListener('click', () => setCookieConsent(false));
+
   /* ===== Sticky Header Shadow ===== */
   const header = document.querySelector('.header');
 
