@@ -26,7 +26,7 @@ final class EnvironmentConfiguration
         if (isset(self::$data[$key])) {
             return self::$data[$key];
         }
-        $env = getenv($key);
-        return $env !== false ? $env : $default;
+        $env = $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key);
+        return $env !== false && $env !== null ? (string)$env : $default;
     }
 }
