@@ -21,8 +21,24 @@ echo Header::render(
   <section class="hero">
     <div class="container">
       <h1 data-i18n="hero.title">Helping couples and teams thrive through transition</h1>
-      <p class="subtitle" data-i18n="hero.subtitle">Certified ORSC Coach &amp; PCM Trainer · Hilversum, Netherlands</p>
+      <p class="subtitle" data-i18n="hero.subtitle">Certified ORSC Coach &amp; Process Communication (PCM) Practicioner</p>
       <a href="#contact" class="btn btn-primary" data-i18n="hero.cta">Book a Free Call</a>
+      <p class="hero-hook" data-i18n="hero.hook">Have you ever felt like you and your partner are living the same move, yet experiencing two completely different realities? One of you thrives on the adventure, while the other quietly mourns what was left behind. The gap isn't geography — it's what happens when big transitions go unspoken.</p>
+
+      <div class="hero-audience">
+        <div class="hero-audience-card">
+          <h3 data-i18n="hero.audience.couples.title">Couples</h3>
+          <p data-i18n="hero.audience.couples.desc">Navigating relocation together while staying emotionally connected.</p>
+        </div>
+        <div class="hero-audience-card">
+          <h3 data-i18n="hero.audience.partnership.title">Partnerships</h3>
+          <p data-i18n="hero.audience.partnership.desc">Rebuilding shared vision when life pulls you in different directions.</p>
+        </div>
+        <div class="hero-audience-card">
+          <h3 data-i18n="hero.audience.teams.title">Teams</h3>
+          <p data-i18n="hero.audience.teams.desc">Leading through change without losing the people around you.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -35,7 +51,7 @@ echo Header::render(
         </div>
         <div class="about-content">
           <h2 data-i18n="about.title">Meet Hélène</h2>
-          <p data-i18n="about.p1">Hélène Prat is an HR leader with nearly 20 years of experience partnering with business teams. She studied Organizational &amp; Social Psychology, where her fascination with group dynamics and the undercurrents that shape behavior first began.</p>
+          <p data-i18n="about.p1">Hélène Prat is an international HR leader with nearly 20 years of experience partnering with business teams. She studied Organizational &amp; Social Psychology, where her fascination with group dynamics and the undercurrents that shape behavior first began.</p>
           <p data-i18n="about.p2">Over a decade ago, while developing a leadership program, she discovered Process Communication (PCM), a powerful methodology that helps individuals build awareness of their personality, motivators, and distress patterns. As a certified trainer and practitioner, she has helped individuals, couples and teams strengthen their communication effectiveness.</p>
           <p data-i18n="about.p3">In 2023, Hélène encountered systemic coaching through the ORSC® methodology — a moment when everything fell into place. She realized she could no longer overlook the transformative power of systems, whether teams, partnerships, or couples.</p>
           <p data-i18n="about.p4">Originally from France, Hélène moved to Dublin in 2008, returned to France in 2009, relocated to Sydney with her life partner in 2015, and in 2022 moved back to Europe with their son. Her family has now settled in Hilversum, in the Netherlands.</p>
@@ -54,7 +70,7 @@ echo Header::render(
           <span class="split-dash">—</span>
           <span class="split-right" data-i18n="program.quote.right">or quietly pulling you apart?"</span>
         </h2>
-        <p class="program-intro-text" data-i18n-html="program.intro">Relocating to a new country is exciting — and also disorienting. You juggle visas, housing, schools, and a new culture, while underneath the surface your relationship is also going through a major transition. <strong>Rooted Together</strong> is a coaching program designed to help you navigate this transition as a team — so you don't just move country, you build a new life that feels like home for both of you.</p>
+        <p class="program-intro-text" data-i18n-html="program.intro">Relocating to a new country is exciting — and also disorienting. You juggle visas, housing, schools, and a new culture, while underneath the surface your relationship is also going through a major transition. We have crafted a coaching program specially for expats to help you navigate this transition as a team — so you don't just move country, you build a new life that feels like home for both of you.</p>
       </div>
 
       <!-- Sessions -->
@@ -81,7 +97,7 @@ echo Header::render(
         </div>
         <div class="session-card">
           <span class="session-number">5</span>
-          <h3 data-i18n="session5.title">Rooting in the Netherlands</h3>
+          <h3 data-i18n="session5.title">Rooting in your new country</h3>
           <p data-i18n="session5.desc">Exploring belonging and local integration — "What does home feel like now?" Identifying values and activities that create roots and connection.</p>
         </div>
         <div class="session-card">
@@ -127,7 +143,7 @@ echo Header::render(
             <svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
           </div>
           <h3 data-i18n="criteria1.title">Recently Relocated</h3>
-          <p data-i18n="criteria1.desc">You have recently relocated to the Netherlands or are preparing to move.</p>
+          <p data-i18n="criteria1.desc">You have recently relocated or are preparing to move.</p>
         </div>
         <div class="criteria-card">
           <div class="criteria-icon">
@@ -162,7 +178,7 @@ echo Header::render(
         </div>
         <div class="gain-item">
           <div class="gain-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <span data-i18n="gain3">Clarity on how to honor what you've left behind while creating meaningful roots in the Netherlands.</span>
+          <span data-i18n="gain3">Clarity on how to honor what you've left behind while creating meaningful roots in your new country.</span>
         </div>
         <div class="gain-item">
           <div class="gain-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -179,8 +195,33 @@ echo Header::render(
   <!-- ===== CONTACT / MULTI-STEP FORM ===== -->
   <section class="contact" id="contact">
     <div class="container">
-      <h2 data-i18n="contact.title">Curious if Rooted Together is right for you?</h2>
+      <h2 data-i18n="contact.title">Curious if this is right for you?</h2>
       <p data-i18n="contact.subtitle">Book a free 30-minute chemistry call to explore your situation and see how we can work together.</p>
+
+      <!-- Chemistry call intro card -->
+      <div class="chemistry-card">
+        <div class="chemistry-card-header">
+          <span class="chemistry-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <h3 data-i18n="chemistry.title">What happens next?</h3>
+        </div>
+        <ul class="chemistry-card-steps">
+          <li>
+            <span class="chemistry-step-num">1</span>
+            <span data-i18n="chemistry.step1">You fill in this short form — it takes less than 2 minutes.</span>
+          </li>
+          <li>
+            <span class="chemistry-step-num">2</span>
+            <span data-i18n="chemistry.step2">Hélène reviews your situation and reaches out to schedule a call.</span>
+          </li>
+          <li>
+            <span class="chemistry-step-num">3</span>
+            <span data-i18n="chemistry.step3">You get a free 30-minute chemistry call — no commitment, no pressure.</span>
+          </li>
+        </ul>
+        <p class="chemistry-card-note" data-i18n="chemistry.note">💛 This call is simply a conversation to see if working together feels right.</p>
+      </div>
 
       <!-- Multi-step form -->
       <div class="msf" id="multi-step-form">
@@ -207,30 +248,50 @@ echo Header::render(
             <span class="msf-error" id="error-email"></span>
           </div>
 
-          <!-- Step 3: Service type -->
+          <!-- Step 3: Country + City -->
           <div class="msf-step" data-step="3">
-            <label data-i18n="form.service.label">What type of service interests you?</label>
-            <div class="msf-radio-group">
-              <label class="msf-radio">
-                <input type="radio" name="service" value="private" required>
-                <span class="msf-radio-label" data-i18n="form.service.private">Private Coaching</span>
-              </label>
-              <label class="msf-radio">
-                <input type="radio" name="service" value="group">
-                <span class="msf-radio-label" data-i18n="form.service.group">Small Group</span>
-              </label>
-              <label class="msf-radio">
-                <input type="radio" name="service" value="workshop">
-                <span class="msf-radio-label" data-i18n="form.service.workshop">Workshop</span>
-              </label>
-            </div>
-            <span class="msf-error" id="error-service"></span>
+            <label for="field-country" data-i18n="form.country.label">Country</label>
+            <select id="field-country" name="country" required>
+              <option value="" data-i18n="form.country.placeholder">Select your country</option>
+              <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Andorra</option><option>Angola</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option>
+              <option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bhutan</option><option>Bolivia</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Brazil</option><option>Brunei</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option>
+              <option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Colombia</option><option>Comoros</option><option>Congo (Brazzaville)</option><option>Congo (Kinshasa)</option><option>Costa Rica</option><option>Croatia</option><option>Cuba</option><option>Cyprus</option><option>Czech Republic</option>
+              <option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option>
+              <option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Eswatini</option><option>Ethiopia</option>
+              <option>Fiji</option><option>Finland</option><option>France</option>
+              <option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Grenada</option><option>Guatemala</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option>
+              <option>Haiti</option><option>Honduras</option><option>Hungary</option>
+              <option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option>
+              <option>Jamaica</option><option>Japan</option><option>Jordan</option>
+              <option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Kuwait</option><option>Kyrgyzstan</option>
+              <option>Laos</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option>
+              <option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Mauritania</option><option>Mauritius</option><option>Mexico</option><option>Micronesia</option><option>Moldova</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option>
+              <option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>North Korea</option><option>North Macedonia</option><option>Norway</option>
+              <option>Oman</option>
+              <option>Pakistan</option><option>Palau</option><option>Palestine</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option>
+              <option>Qatar</option>
+              <option>Romania</option><option>Russia</option><option>Rwanda</option>
+              <option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>São Tomé and Príncipe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Sweden</option><option>Switzerland</option><option>Syria</option>
+              <option>Taiwan</option><option>Tajikistan</option><option>Tanzania</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Tuvalu</option>
+              <option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Uzbekistan</option>
+              <option>Vanuatu</option><option>Vatican City</option><option>Venezuela</option><option>Vietnam</option>
+              <option>Yemen</option>
+              <option>Zambia</option><option>Zimbabwe</option>
+            </select>
+            <span class="msf-error" id="error-country"></span>
+            <label for="field-city" data-i18n="form.city.label">City</label>
+            <input type="text" id="field-city" name="city" data-i18n-placeholder="form.city.placeholder" placeholder="Your city">
+            <span class="msf-error" id="error-city"></span>
           </div>
 
-          <!-- Step 4: Message -->
+          <!-- Step 4: About + Availability -->
           <div class="msf-step" data-step="4">
-            <label for="field-message" data-i18n="form.message.label">Anything else you'd like to share?</label>
-            <textarea id="field-message" name="message" rows="4" data-i18n-placeholder="form.message.placeholder" placeholder="Your message (optional)"></textarea>
+            <label for="field-about" data-i18n="form.about.label">Tell us about you</label>
+            <textarea id="field-about" name="about" rows="3" data-i18n-placeholder="form.about.placeholder" placeholder="A few words about you and your situation"></textarea>
+            <span class="msf-error" id="error-about"></span>
+            <label for="field-availability" data-i18n="form.availability.label">Your availability (please mention your timezone)</label>
+            <textarea id="field-availability" name="availability" rows="2" data-i18n-placeholder="form.availability.placeholder" placeholder="e.g. Weekday mornings CET, weekends flexible"></textarea>
+            <span class="msf-error" id="error-availability"></span>
             <label class="msf-checkbox">
               <input type="checkbox" id="field-consent" name="consent" required>
               <span data-i18n="form.consent">I agree that my data will be used to process my request.</span>

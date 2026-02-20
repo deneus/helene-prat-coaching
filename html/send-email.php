@@ -39,12 +39,14 @@ if (!TurnstileVerifier::verify($turnstileToken, $turnstileSecret)) {
 }
 
 // Validate input
-$name    = htmlspecialchars(trim($input['name'] ?? ''));
-$email   = filter_var(trim($input['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-$service = htmlspecialchars(trim($input['service'] ?? ''));
-$message = htmlspecialchars(trim($input['message'] ?? ''));
+$name         = htmlspecialchars(trim($input['name'] ?? ''));
+$email        = filter_var(trim($input['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+$country      = htmlspecialchars(trim($input['country'] ?? ''));
+$city         = htmlspecialchars(trim($input['city'] ?? ''));
+$about        = htmlspecialchars(trim($input['about'] ?? ''));
+$availability = htmlspecialchars(trim($input['availability'] ?? ''));
 
-if (empty($name) || !$email || empty($service)) {
+if (empty($name) || !$email) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;
@@ -53,10 +55,12 @@ if (empty($name) || !$email || empty($service)) {
 // Send email
 try {
     Contact::send([
-        'name' => $name,
-        'email' => $email,
-        'service' => $service,
-        'message' => $message,
+        'name'         => $name,
+        'email'        => $email,
+        'country'      => $country,
+        'city'         => $city,
+        'about'        => $about,
+        'availability' => $availability,
     ]);
 
     echo json_encode(['success' => true, 'message' => 'Email sent successfully']);

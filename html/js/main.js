@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.about-photo, .about-content, .split-quote, .program-intro-text, .for-you > .container > h2, .for-you > .container > .section-subtitle, .delivery-formats h3, .footer-brand, .footer-nav, .footer-bottom, .contact h2, .contact > .container > p, .contact .msf').forEach(el => {
+  document.querySelectorAll('.about-photo, .about-content, .split-quote, .program-intro-text, .for-you > .container > h2, .for-you > .container > .section-subtitle, .delivery-formats h3, .footer-brand, .footer-nav, .footer-bottom, .contact h2, .contact > .container > p, .chemistry-card, .contact .msf').forEach(el => {
     revealObserver.observe(el);
   });
 
@@ -332,9 +332,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (step === 3) {
-      const service = document.querySelector('input[name="service"]:checked');
-      if (!service) {
-        showError('error-service', translations['form.service.required'] || 'Please select a service');
+      const country = document.getElementById('field-country').value;
+      if (!country) {
+        showError('error-country', translations['form.required'] || 'This field is required');
         return false;
       }
     }
@@ -364,15 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
       el.textContent = '';
       el.classList.remove('visible');
     });
-  }
-
-  function getServiceLabel(value) {
-    const map = {
-      private: translations['form.service.private'] || 'Private Coaching',
-      group: translations['form.service.group'] || 'Small Group',
-      workshop: translations['form.service.workshop'] || 'Workshop'
-    };
-    return map[value] || value;
   }
 
   // Navigation
@@ -416,8 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const formData = {
       name: document.getElementById('field-name').value.trim(),
       email: document.getElementById('field-email').value.trim(),
-      service: getServiceLabel(document.querySelector('input[name="service"]:checked')?.value || ''),
-      message: document.getElementById('field-message').value.trim(),
+      country: document.getElementById('field-country').value,
+      city: document.getElementById('field-city').value.trim(),
+      about: document.getElementById('field-about').value.trim(),
+      availability: document.getElementById('field-availability').value.trim(),
       turnstileToken: turnstileResponse
     };
 

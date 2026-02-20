@@ -16,10 +16,12 @@ final class Contact
         $gmailAppPassword = EnvironmentConfiguration::get('GMAIL_APP_PASSWORD');
         $recipientName = EnvironmentConfiguration::get('RECIPIENT_NAME', 'Hélène Prat');
 
-        $name = $formData['name'];
-        $email = $formData['email'];
-        $service = $formData['service'];
-        $message = $formData['message'];
+        $name         = $formData['name'];
+        $email        = $formData['email'];
+        $country      = $formData['country'];
+        $city         = $formData['city'];
+        $about        = $formData['about'];
+        $availability = $formData['availability'];
 
         $htmlBody = "
 <html>
@@ -35,12 +37,20 @@ final class Contact
             <td style='padding: 8px; border-bottom: 1px solid #eee;'><a href='mailto:{$email}'>{$email}</a></td>
         </tr>
         <tr>
-            <td style='padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;'>Service</td>
-            <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$service}</td>
+            <td style='padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;'>Pays</td>
+            <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$country}</td>
         </tr>
         <tr>
-            <td style='padding: 8px; font-weight: bold;'>Message</td>
-            <td style='padding: 8px;'>" . nl2br($message ?: '<em>Aucun message</em>') . "</td>
+            <td style='padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;'>Ville</td>
+            <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$city}</td>
+        </tr>
+        <tr>
+            <td style='padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;'>À propos</td>
+            <td style='padding: 8px; border-bottom: 1px solid #eee;'>" . nl2br($about ?: '<em>Non renseigné</em>') . "</td>
+        </tr>
+        <tr>
+            <td style='padding: 8px; font-weight: bold;'>Disponibilités</td>
+            <td style='padding: 8px;'>" . nl2br($availability ?: '<em>Non renseigné</em>') . "</td>
         </tr>
     </table>
 </body>
@@ -62,9 +72,9 @@ final class Contact
         $mail->addReplyTo($email, $name);
 
         $mail->isHTML(true);
-        $mail->Subject = "Contact site web — {$name} ({$service})";
+        $mail->Subject = "Contact site web — {$name}";
         $mail->Body = $htmlBody;
-        $mail->AltBody = "Nom: {$name}\nEmail: {$email}\nService: {$service}\nMessage: {$message}";
+        $mail->AltBody = "Nom: {$name}\nEmail: {$email}\nPays: {$country}\nVille: {$city}\nÀ propos: {$about}\nDisponibilités: {$availability}";
 
         $mail->send();
     }
