@@ -2,14 +2,14 @@
   "version": 2,
   "buildCommand": "cd html && composer install --no-dev --optimize-autoloader",
   "functions": {
-    "html/index.php":      { "runtime": "vercel-php@0.7.2" },
-    "html/send-email.php": { "runtime": "vercel-php@0.7.2" },
-    "html/privacy.php":    { "runtime": "vercel-php@0.7.2" }
+    "api/index.php":      { "runtime": "vercel-php@0.7.2" },
+    "api/send-email.php": { "runtime": "vercel-php@0.7.2" },
+    "api/privacy.php":    { "runtime": "vercel-php@0.7.2" }
   },
   "routes": [
-    { "src": "/send-email(\\.php)?", "dest": "/html/send-email.php" },
-    { "src": "/privacy(\\.php)?",    "dest": "/html/privacy.php" },
+    { "src": "/send-email(\\.php)?", "dest": "/api/send-email.php" },
+    { "src": "/privacy(\\.php)?",    "dest": "/api/privacy.php" },
     { "src": "/(css|js|images|i18n)/(.*)", "dest": "/html/$1/$2" },
-    { "src": "/",                    "dest": "/html/index.php" }
+    { "src": "/",                    "dest": "/api/index.php" }
   ]
 }
