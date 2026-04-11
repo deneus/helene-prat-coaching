@@ -45,6 +45,7 @@ $country      = htmlspecialchars(trim($input['country'] ?? ''));
 $city         = htmlspecialchars(trim($input['city'] ?? ''));
 $about        = htmlspecialchars(trim($input['about'] ?? ''));
 $availability = htmlspecialchars(trim($input['availability'] ?? ''));
+$source       = htmlspecialchars(trim($input['source'] ?? ''));
 
 if (empty($name) || !$email) {
     http_response_code(400);
@@ -61,6 +62,7 @@ try {
         'city'         => $city,
         'about'        => $about,
         'availability' => $availability,
+        'source'       => $source,
     ]);
 
     echo json_encode(['success' => true, 'message' => 'Email sent successfully']);

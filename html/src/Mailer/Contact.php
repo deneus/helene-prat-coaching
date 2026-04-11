@@ -22,12 +22,19 @@ final class Contact
         $city         = $formData['city'];
         $about        = $formData['about'];
         $availability = $formData['availability'];
+        $source       = $formData['source'] ?? '';
+
+        $sourceLabel = $source !== '' ? $source : '<em>non renseigné</em>';
 
         $htmlBody = "
 <html>
 <body style='font-family: Arial, sans-serif; color: #333;'>
     <h2 style='color: #E8927C;'>Nouveau message depuis le site</h2>
     <table style='border-collapse: collapse; width: 100%;'>
+        <tr>
+            <td style='padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;'>Source</td>
+            <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$sourceLabel}</td>
+        </tr>
         <tr>
             <td style='padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;'>Nom</td>
             <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$name}</td>
@@ -67,14 +74,14 @@ final class Contact
         $mail->Port = 587;
         $mail->CharSet = 'UTF-8';
 
-        $mail->setFrom($gmailAddress, 'Site Hélène Coaching');
+        $mail->setFrom($gmailAddress, 'theweknows');
         $mail->addAddress($gmailAddress, $recipientName);
         $mail->addReplyTo($email, $name);
 
         $mail->isHTML(true);
         $mail->Subject = "Contact site web — {$name}";
         $mail->Body = $htmlBody;
-        $mail->AltBody = "Nom: {$name}\nEmail: {$email}\nPays: {$country}\nVille: {$city}\nÀ propos: {$about}\nDisponibilités: {$availability}";
+        $mail->AltBody = "Source: {$source}\nNom: {$name}\nEmail: {$email}\nPays: {$country}\nVille: {$city}\nÀ propos: {$about}\nDisponibilités: {$availability}";
 
         $mail->send();
     }

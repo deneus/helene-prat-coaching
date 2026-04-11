@@ -12,7 +12,23 @@
   --color-dark: #2C3327;
   --font-heading: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Mulish', Arial, sans-serif;
+
+  /* Audience accent tokens — used by landing pages to tint section borders,
+     icons and highlights while keeping the primary palette coherent. */
+  --color-couples: #D56544;
+  --color-couples-light: #FFD5C6;
+  --color-teams: #5B8A72;
+  --color-teams-light: #D6E7DA;
+  --color-partnerships: #4A6FA5;
+  --color-partnerships-light: #D9E3F1;
+  --color-about: #8A5A44;
+  --color-about-light: #E8D9CB;
 }
+
+/* ===== Audience body tinting ===== */
+body[data-audience="couples"] .hero-audience-card h3 { color: var(--color-couples); }
+body[data-audience="teams"] .hero-audience-card h3 { color: var(--color-teams); }
+body[data-audience="partnerships"] .hero-audience-card h3 { color: var(--color-partnerships); }
 
 /* ===== Reset ===== */
 *, *::before, *::after {
@@ -173,13 +189,17 @@ section {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 22px;
+}
+
+@media (max-width: 1080px) {
+  .nav-links { gap: 16px; }
 }
 
 .nav-links a {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 2.5px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--color-text);
   position: relative;
@@ -217,6 +237,40 @@ section {
 .lang-toggle:hover {
   background-color: var(--color-primary);
   color: var(--color-white);
+}
+
+/* Nav CTA button (Book a call) */
+.nav-links a.nav-cta {
+  padding: 9px 20px;
+  border-radius: 9999px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  letter-spacing: 1.2px;
+}
+
+.nav-links a.nav-cta::after { display: none; }
+
+.nav-links a.nav-cta:hover {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(213, 101, 68, 0.3);
+}
+
+/* Card link hint on audience cards */
+.criteria-card .card-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 0.3s ease;
+}
+
+.criteria-card:hover .card-link {
+  transform: translateX(4px);
 }
 
 /* Hamburger */
@@ -1516,11 +1570,7 @@ section {
   }
 }
 
-@media (max-width: 768px) {
-  section {
-    padding: 72px 0;
-  }
-
+@media (max-width: 900px) {
   .nav-links {
     display: none;
     position: fixed;
@@ -1532,14 +1582,31 @@ section {
     padding: 32px 24px;
     gap: 24px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    align-items: stretch;
   }
 
   .nav-links.active {
     display: flex;
   }
 
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .nav-links a.nav-cta {
+    padding: 12px 20px;
+  }
+
   .hamburger {
     display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 72px 0;
   }
 
   .hero {

@@ -6,7 +6,7 @@ use HeleneCoaching\FrontEnd\Header;
 use HeleneCoaching\FrontEnd\Footer;
 
 echo Header::render(
-    title: 'Privacy Policy — Hélène Prat',
+    title: 'Privacy Policy — theweknows',
     titleI18nKey: 'privacy.meta.title',
 );
 ?>
@@ -25,8 +25,9 @@ echo Header::render(
       <ul>
         <li data-i18n="privacy.collected.name">Your name</li>
         <li data-i18n="privacy.collected.email">Your email address</li>
-        <li data-i18n="privacy.collected.service">The type of service you are interested in</li>
-        <li data-i18n="privacy.collected.message">Your message (optional)</li>
+        <li data-i18n="privacy.collected.country">Your country and city</li>
+        <li data-i18n="privacy.collected.message">A short description of your situation and availability (optional)</li>
+        <li data-i18n="privacy.collected.source">The page or audience context from which you contacted us (e.g. "couples" or "teams"), recorded only so Hélène can reply with the right context</li>
       </ul>
 
       <h2 data-i18n="privacy.purpose.title">Why We Collect Your Data</h2>

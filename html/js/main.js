@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadTranslations(lang) {
     try {
-      const res = await fetch(`i18n/${lang}.json`);
+      const isDev = ['localhost', '127.0.0.1'].includes(location.hostname);
+      const res = await fetch(`/i18n/${lang}.json`, isDev ? { cache: 'no-store' } : undefined);
       translations = await res.json();
       applyTranslations();
     } catch (e) {
@@ -267,6 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== Multi-Step Form ===== */
   const form = document.getElementById('contact-form');
+
+  if (form) {
   const steps = document.querySelectorAll('.msf-step');
   const prevBtn = document.getElementById('msf-prev');
   const nextBtn = document.getElementById('msf-next');
@@ -274,6 +277,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = document.getElementById('msf-progress-bar');
   const currentIndicator = document.getElementById('msf-current');
   const successEl = document.getElementById('msf-success');
+  const sourceField = document.getElementById('field-source');
+
+  // Capture ?source=X query param into the hidden source field
+  if (sourceField) {
+    const params = new URLSearchParams(window.location.search);
+    const source = params.get('source') || document.referrer || 'direct';
+    sourceField.value = source;
+  }
 
   const TOTAL_STEPS = 4;
   let currentStep = 1;
@@ -411,6 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
       city: document.getElementById('field-city').value.trim(),
       about: document.getElementById('field-about').value.trim(),
       availability: document.getElementById('field-availability').value.trim(),
+      source: sourceField ? sourceField.value : '',
       turnstileToken: turnstileResponse
     };
 
@@ -444,5 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize form
   showStep(1);
   formInitialized = true;
+  } // end if (form)
 
 });

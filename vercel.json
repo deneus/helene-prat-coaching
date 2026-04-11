@@ -1,6 +1,6 @@
 {
   "version": 2,
-"functions": {
+  "functions": {
     "api/index.php":      { "runtime": "vercel-php@0.7.2" },
     "api/send-email.php": { "runtime": "vercel-php@0.7.2" },
     "api/privacy.php":    { "runtime": "vercel-php@0.7.2" }
@@ -8,7 +8,9 @@
   "routes": [
     { "src": "/send-email(\\.php)?", "dest": "/api/send-email.php" },
     { "src": "/privacy(\\.php)?",    "dest": "/api/privacy.php" },
+    { "src": "/sitemap\\.xml",       "dest": "/html/sitemap.xml" },
+    { "src": "/robots\\.txt",        "dest": "/html/robots.txt" },
     { "src": "/(css|js|images|i18n)/(.*)", "dest": "/html/$1/$2" },
-    { "src": "/",                    "dest": "/api/index.php" }
+    { "src": "/(.*)",                "dest": "/api/index.php" }
   ]
 }
