@@ -1653,3 +1653,235 @@ section {
     min-width: 100%;
   }
 }
+
+/* ===== Print Styles ===== */
+@media print {
+  /* Force all reveal-animated elements to be visible */
+  .hero h1,
+  .hero .subtitle,
+  .hero .btn,
+  .hero .hero-hook,
+  .hero-audience,
+  .about-photo,
+  .about-content,
+  .split-quote .split-left,
+  .split-quote .split-right,
+  .split-quote .split-dash,
+  .program-intro-text,
+  .session-card,
+  .program-detail,
+  .program-detail .detail-label,
+  .for-you > .container > h2,
+  .for-you > .container > .section-subtitle,
+  .criteria-card,
+  .delivery-formats h3,
+  .format-item,
+  .gain-item .gain-check,
+  .gain-item > span,
+  .contact h2,
+  .contact > .container > p,
+  .chemistry-card,
+  .contact .msf,
+  .footer-brand,
+  .footer-nav,
+  .footer-bottom {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Reset all potential reveal targets generically */
+  .revealed,
+  [class*="revealed"],
+  .gain-item,
+  .criteria-card:nth-child(1),
+  .criteria-card:nth-child(3) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Disable all animations & transitions */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Page setup */
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Header: make static and simplified */
+  .header {
+    position: static;
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .header .container {
+    height: auto;
+    padding: 12px 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  /* Hide interactive / irrelevant elements */
+  .hamburger,
+  .lang-toggle,
+  .nav-links a.nav-cta,
+  .cookie-banner,
+  .msf,
+  .btn,
+  .card-link {
+    display: none !important;
+  }
+
+  /* Navigation: show as simple inline links */
+  .nav-links {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    gap: 16px !important;
+  }
+
+  .nav-links a {
+    font-size: 9pt;
+    color: #000;
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 24px 0 32px;
+    background: none;
+  }
+
+  /* Sections */
+  section {
+    padding: 32px 0;
+  }
+
+  /* Grids: keep readable columns or linearize */
+  .sessions-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .criteria-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .formats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  /* Cards & items: ensure borders print */
+  .session-card,
+  .criteria-card,
+  .format-item,
+  .chemistry-card {
+    border: 1px solid #ddd;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .session-card:hover,
+  .criteria-card:hover,
+  .format-item:hover {
+    transform: none;
+  }
+
+  /* Gains section: ensure readable on paper */
+  .gains {
+    background: #f5f5f5 !important;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .gains h2 {
+    color: #000;
+  }
+
+  .gain-check {
+    background-color: #ddd !important;
+  }
+
+  .gain-check svg {
+    stroke: #333;
+  }
+
+  /* About photo */
+  .about-photo,
+  .about-photo img {
+    break-inside: avoid;
+  }
+
+  /* Footer */
+  .footer {
+    background: none;
+    color: #333;
+    padding: 24px 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .footer-brand .logo {
+    color: #000;
+  }
+
+  .footer-brand p,
+  .footer-nav a,
+  .footer-bottom {
+    color: #333;
+  }
+
+  .footer-bottom {
+    border-top-color: #ccc;
+  }
+
+  /* Links: show URL after text */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    font-weight: 400;
+    color: #666;
+  }
+
+  /* But not for nav / footer short links */
+  .nav-links a::after,
+  .footer-nav a::after,
+  .logo::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Page break control */
+  h1, h2, h3 {
+    break-after: avoid;
+  }
+
+  .about,
+  .program,
+  .for-you,
+  .gains,
+  .contact,
+  .footer {
+    break-inside: avoid;
+  }
+
+  /* Privacy policy print */
+  .privacy-policy {
+    padding-top: 24px;
+  }
+}
